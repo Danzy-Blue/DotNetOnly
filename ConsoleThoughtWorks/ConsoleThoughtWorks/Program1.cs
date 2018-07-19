@@ -5,35 +5,13 @@ using System.Text;
 
 namespace ConsoleThoughtWorks
 {
-    public class File
+
+
+    public partial class Explorer
     {
-        public int Size;
-        public int? DownloadTime;
 
-        public File(int size, int? time)
-        {
-            this.Size = size;
-            this.DownloadTime = time;
-        }
-    }
 
-    public class Explorer
-    {
-        double speed;
-        Dictionary<int, File> files;
-        public Explorer(int speed, Dictionary<int, File> files)
-        {
-            this.speed = speed;
-            this.files = files;
-        }
-
-        public int GetTotaltime()
-        {
-
-            return files.Sum(x => x.Value.DownloadTime.GetValueOrDefault());
-        }
-
-        public void Logic()
+        public void NewLogic()
         {
             foreach (var file in files.OrderBy(x => x.Value.Size))
             {
@@ -69,13 +47,53 @@ namespace ConsoleThoughtWorks
         }
     }
 
-    class Program1
+
+    public class Dummy
     {
-        static void Main(string[] args)
+        public int number1;
+        public int? number2;
+    }
+
+    partial class Program
+    {
+        static void Main12(string[] args)
         {
             try
 
             {
+
+                IEnumerable<Dummy> dummyObj = new List<Dummy>
+                {
+                    new Dummy(){ number1=1,number2=2},
+                    new Dummy()
+                };
+
+                var a = dummyObj.DefaultIfEmpty();
+                Console.WriteLine($"FIRST >> Number1: {a.First().number1}:: Number2: {a.First().number2}");
+                Console.WriteLine($"SECOND >> Number1: {a.Last().number1}:: Number2: {a.Last().number2}");
+
+                ////dummyObj = new List<Dummy>();
+                ////aa = dummyObj;
+                var aa = dummyObj.DefaultIfEmpty().Where(x => x.number1 > 1);
+                var aaaba = dummyObj.Where(x => x.number1 > 1);
+
+                Console.WriteLine($"FIRST >> Number1: {aa.First().number1}:: Number2: {aa.First().number2}");
+                Console.WriteLine($"SECOND >> Number1: {aa.Last().number1}:: Number2:{aa.Last().number2}");
+
+
+                dummyObj = null;
+                var aaa = dummyObj.DefaultIfEmpty();
+
+
+                if (aaa != null)
+                {
+                    Console.WriteLine("collecton is not null");
+                }
+
+
+
+                Console.WriteLine($"FIRST >> Number1: {aaa.First().number1}:: Number2: {aaa.First().number2}");
+                Console.WriteLine($"SECOND >> Number1: {aaa.Last().number1}:: Number2: {aaa.Last().number2}");
 
                 var alist = new List<Document>
                 {
@@ -85,7 +103,7 @@ namespace ConsoleThoughtWorks
                 };
 
 
-                var aaaa= alist.OrderBy(x => x.getValue());
+                var aaaa = alist.OrderBy(x => x.getValue());
                 var bbb = aaaa.ToArray();
 
                 checked
@@ -132,7 +150,7 @@ namespace ConsoleThoughtWorks
 
                 foreach (var ex in explorers)
                 {
-                    ex.Logic();
+                    ex.NewLogic();
                     Console.WriteLine(ex.GetTotaltime());
                 }
             }
