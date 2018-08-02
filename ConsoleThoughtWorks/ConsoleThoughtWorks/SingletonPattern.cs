@@ -10,7 +10,9 @@ namespace ConsoleThoughtWorks
 {
     public class SingletonPattern
     {
-        private static readonly SingletonPattern obj = new SingletonPattern();
+        //private static readonly SingletonPattern obj = new SingletonPattern();
+        private static readonly Lazy<SingletonPattern> obj = new Lazy<SingletonPattern>(() => new SingletonPattern());
+
         //private static readonly object readObj = new object();
         private SingletonPattern()
         {
@@ -26,7 +28,7 @@ namespace ConsoleThoughtWorks
             //        obj = new SingletonPattern();
             //    }
 
-            return obj;
+            return obj.Value;
             //}
         }
 
@@ -72,6 +74,11 @@ namespace ConsoleThoughtWorks
             //SingletonPattern.callAsync();
 
             //4
+            //SingletonPattern.callAsync();
+            //SingletonPattern.callAsync();
+            //SingletonPattern.callAsync();
+
+            //5
             SingletonPattern.callAsync();
             SingletonPattern.callAsync();
             SingletonPattern.callAsync();
