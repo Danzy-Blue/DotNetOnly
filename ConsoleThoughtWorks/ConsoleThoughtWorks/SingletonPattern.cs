@@ -11,6 +11,7 @@ namespace ConsoleThoughtWorks
     public class SingletonPattern
     {
         private static SingletonPattern obj;
+        private static readonly object readObj = new object();
         private SingletonPattern()
         {
             Console.WriteLine($"Constructor Called");
@@ -18,12 +19,15 @@ namespace ConsoleThoughtWorks
 
         public static SingletonPattern getSingletonObject()
         {
-            if (obj == null)
+            lock (readObj)
             {
-                obj = new SingletonPattern();
-            }
+                if (obj == null)
+                {
+                    obj = new SingletonPattern();
+                }
 
-            return obj;
+                return obj;
+            }
         }
     }
 
@@ -32,9 +36,31 @@ namespace ConsoleThoughtWorks
         public static void Main()
         {
             // 1
-            SingletonPattern.getSingletonObject();
-            SingletonPattern.getSingletonObject();
-            SingletonPattern.getSingletonObject();
+            //SingletonPattern.getSingletonObject();
+            //SingletonPattern.getSingletonObject();
+            //SingletonPattern.getSingletonObject();
+
+            // 2
+            Task firstTask = new Task(() =>
+            {
+                SingletonPattern.getSingletonObject();
+            });
+
+            Task secondTask = new Task(() =>
+            {
+                SingletonPattern.getSingletonObject();
+
+            });
+
+            Task thirdTask = new Task(() =>
+            {
+                SingletonPattern.getSingletonObject();
+            });
+
+            firstTask.Start();
+            secondTask.Start();
+            thirdTask.Start();
+
 
             Console.WriteLine();
         }
