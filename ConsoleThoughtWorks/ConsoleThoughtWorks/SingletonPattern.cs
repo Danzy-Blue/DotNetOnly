@@ -10,8 +10,8 @@ namespace ConsoleThoughtWorks
 {
     public class SingletonPattern
     {
-        private static SingletonPattern obj;
-        private static readonly object readObj = new object();
+        private static readonly SingletonPattern obj = new SingletonPattern();
+        //private static readonly object readObj = new object();
         private SingletonPattern()
         {
             Console.WriteLine($"Constructor Called");
@@ -19,15 +19,15 @@ namespace ConsoleThoughtWorks
 
         public static SingletonPattern getSingletonObject()
         {
-            lock (readObj)
-            {
-                if (obj == null)
-                {
-                    obj = new SingletonPattern();
-                }
+            //lock (readObj)
+            //{
+            //    if (obj == null)
+            //    {
+            //        obj = new SingletonPattern();
+            //    }
 
-                return obj;
-            }
+            return obj;
+            //}
         }
 
         public async static void callAsync()
@@ -67,10 +67,14 @@ namespace ConsoleThoughtWorks
             //thirdTask.Start();
 
             // 3
-            SingletonPattern.callAsync();
-            SingletonPattern.callAsync();
-            SingletonPattern.callAsync();
+            //SingletonPattern.callAsync();
+            //SingletonPattern.callAsync();
+            //SingletonPattern.callAsync();
 
+            //4
+            SingletonPattern.callAsync();
+            SingletonPattern.callAsync();
+            SingletonPattern.callAsync();
 
             Console.WriteLine();
         }
