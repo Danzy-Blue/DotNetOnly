@@ -29,6 +29,11 @@ namespace ConsoleThoughtWorks
                 return obj;
             }
         }
+
+        public async static void callAsync()
+        {
+            await Task.Run(() => SingletonPattern.getSingletonObject());
+        }
     }
 
     partial class Program
@@ -41,25 +46,30 @@ namespace ConsoleThoughtWorks
             //SingletonPattern.getSingletonObject();
 
             // 2
-            Task firstTask = new Task(() =>
-            {
-                SingletonPattern.getSingletonObject();
-            });
+            //Task firstTask = new Task(() =>
+            //{
+            //    SingletonPattern.getSingletonObject();
+            //});
 
-            Task secondTask = new Task(() =>
-            {
-                SingletonPattern.getSingletonObject();
+            //Task secondTask = new Task(() =>
+            //{
+            //    SingletonPattern.getSingletonObject();
 
-            });
+            //});
 
-            Task thirdTask = new Task(() =>
-            {
-                SingletonPattern.getSingletonObject();
-            });
+            //Task thirdTask = new Task(() =>
+            //{
+            //    SingletonPattern.getSingletonObject();
+            //});
 
-            firstTask.Start();
-            secondTask.Start();
-            thirdTask.Start();
+            //firstTask.Start();
+            //secondTask.Start();
+            //thirdTask.Start();
+
+            // 3
+            SingletonPattern.callAsync();
+            SingletonPattern.callAsync();
+            SingletonPattern.callAsync();
 
 
             Console.WriteLine();
